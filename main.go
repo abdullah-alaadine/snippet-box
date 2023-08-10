@@ -9,6 +9,8 @@ func main() {
 	mux := http.NewServeMux()
 
 	mux.HandleFunc("/", home)
+	mux.HandleFunc("/snippet/view/", snippetView)
+	mux.HandleFunc("/snippet/create/", snippetCreate)
 
 	log.Printf("starting server on port :%d", 4000)
 	err := http.ListenAndServe(":4000", mux)
@@ -17,4 +19,12 @@ func main() {
 
 func home(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("hello from Snipperbox"))
+}
+
+func snippetView(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("Display a specific snippet..."))
+}
+
+func snippetCreate(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("Create a new snippet..."))
 }
