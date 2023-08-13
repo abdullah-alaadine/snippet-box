@@ -79,7 +79,11 @@ func (a *application) snippetView(w http.ResponseWriter, r *http.Request) {
 		a.serverError(w, err)
 	}
 
-	fmt.Fprintf(w, "%+v", snippet)
+	data := &templateData{
+		Snippet: snippet,
+	}
+
+	fmt.Fprintf(w, "%+v", data)
 }
 
 func (a *application) snippetCreate(w http.ResponseWriter, r *http.Request) {
