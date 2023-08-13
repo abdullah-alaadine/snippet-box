@@ -22,10 +22,6 @@ func (a *application) home(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	for _, snippet := range snippets {
-		fmt.Fprintf(w, "%+v\n", snippet)
-	}
-
 	files := []string{
 		"./ui/html/base.tmpl",
 		"./ui/html/partials/nav.tmpl",
@@ -46,7 +42,6 @@ func (a *application) home(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		a.serverError(w, err)
 	}
-
 }
 
 func (a *application) snippetView(w http.ResponseWriter, r *http.Request) {
