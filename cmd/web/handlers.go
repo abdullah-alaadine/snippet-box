@@ -9,45 +9,45 @@ import (
 	"github.com/abdullah-alaadine/snippet-box/internal/models"
 )
 
-func (a *application) home(w http.ResponseWriter, r *http.Request) {
+func (app *application) home(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/" {
-		a.notFound(w)
+		app.notFound(w)
 		return
 	}
 
-	snippets, err := a.snippets.Latest()
+	snippets, err := app.snippets.Latest()
 	if err != nil {
-		a.serverError(w, err)
+		app.serverError(w, err)
 		return
 	}
 
-	a.render(w, http.StatusOK, "home.tmpl", &templateData{Snippets: snippets})
+	app.render(w, http.StatusOK, "home.tmpl", &templateData{Snippets: snippets})
 }
 
-func (a *application) snippetView(w http.ResponseWriter, r *http.Request) {
+func (app *application) snippetView(w http.ResponseWriter, r *http.Request) {
 	id, err := strconv.Atoi(r.URL.Query().Get("id"))
 	if err != nil || id < 1 {
-		a.notFound(w)
+		app.notFound(w)
 		return
 	}
 
-	snippet, err := a.snippets.Get(id)
+	snippet, err := app.snippets.Get(id)
 	if err != nil {
 		if errors.Is(err, models.ErrNoRecord) {
-			a.notFound(w)
+			app.notFound(w)
 		} else {
-			a.serverError(w, err)
+			app.serverError(w, err)
 		}
 		return
 	}
 
-	a.render(w, http.StatusOK, "view.tmpl", &templateData{Snippet: snippet})
+	app.render(w, http.StatusOK, "view.tmpl", &templateData{Snippet: snippet})
 }
 
-func (a *application) snippetCreate(w http.ResponseWriter, r *http.Request) {
+func (app *application) snippetCreate(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
 		w.Header().Set("Allow", http.MethodPost)
-		a.clientError(w, http.StatusMethodNotAllowed)
+		app.clientError(w, http.StatusMethodNotAllowed)
 		return
 	}
 
@@ -55,9 +55,9 @@ func (a *application) snippetCreate(w http.ResponseWriter, r *http.Request) {
 	content := "O snail\nClimb Mount Fuji,\nBut slowly, slowly!\n\n– Kobayashi Issa"
 	expires := 7
 
-	id, err := a.snippets.Insert(title, content, expires)
+	id, err := app.snippets.Insert(title, content, expires)
 	if err != nil {
-		a.serverError(w, err)
+		app.serverError(w, err)
 		return
 	}
 
