@@ -9,6 +9,8 @@ import (
 	"unicode/utf8"
 
 	"github.com/abdullah-alaadine/snippet-box/internal/models"
+	"github.com/abdullah-alaadine/snippet-box/internal/validator"
+
 	"github.com/julienschmidt/httprouter"
 )
 
@@ -61,10 +63,10 @@ func (app *application) snippetCreate(w http.ResponseWriter, r *http.Request) {
 }
 
 type snippetCreateForm struct {
-	Title       string
-	Content     string
-	Expires     int
-	FieldErrors map[string]string
+	Title   string
+	Content string
+	Expires int
+	validator.Validator
 }
 
 func (app *application) snippetCreatePost(w http.ResponseWriter, r *http.Request) {
@@ -84,7 +86,6 @@ func (app *application) snippetCreatePost(w http.ResponseWriter, r *http.Request
 		Title:       r.PostForm.Get("title"),
 		Content:     r.PostForm.Get("content"),
 		Expires:     expires,
-		FieldErrors: map[string]string{},
 	}
 
 	if strings.TrimSpace(form.Title) == "" {
