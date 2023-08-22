@@ -8,7 +8,6 @@ import (
 )
 
 func (app *application) routes() http.Handler {
-	mux := http.NewServeMux()
 	router := httprouter.New()
 
 	router.NotFound = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -27,5 +26,5 @@ func (app *application) routes() http.Handler {
 
 	standard := alice.New(app.recoverPanic, app.logRequest, secureHeaders)
 
-	return standard.Then(mux)
+	return standard.Then(router)
 }
