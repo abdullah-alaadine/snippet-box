@@ -9,7 +9,8 @@ import (
 var EmailRX = regexp.MustCompile(`^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$`)
 
 type Validator struct {
-	FieldErrors map[string]string
+	NonFieldErrors []string
+	FieldErrors    map[string]string
 }
 
 func (v *Validator) Valid() bool {
