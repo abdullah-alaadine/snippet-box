@@ -3,6 +3,7 @@ package main
 import (
 	"io"
 	"log"
+	"net/http/httptest"
 	"testing"
 )
 
@@ -11,4 +12,8 @@ func newTestApplication(t *testing.T) *application {
 		errorLog: log.New(io.Discard, "", 0),
 		infoLog:  log.New(io.Discard, "", 0),
 	}
+}
+
+type testServer struct {
+	*httptest.Server
 }
