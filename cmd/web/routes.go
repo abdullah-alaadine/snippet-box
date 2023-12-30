@@ -3,9 +3,9 @@ package main
 import (
 	"net/http"
 
-	"github.com/abdullah-alaadine/snippet-box/ui"
 	"github.com/julienschmidt/httprouter"
 	"github.com/justinas/alice"
+	"github.com/knbr13/snippet-box/ui"
 )
 
 func (app *application) routes() http.Handler {

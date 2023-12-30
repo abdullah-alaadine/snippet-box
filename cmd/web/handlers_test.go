@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/abdullah-alaadine/snippet-box/internal/assert"
+	"github.com/knbr13/snippet-box/internal/assert"
 )
 
 func TestPing(t *testing.T) {

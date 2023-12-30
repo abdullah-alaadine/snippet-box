@@ -1,4 +1,4 @@
-module github.com/abdullah-alaadine/snippet-box
+module github.com/knbr13/snippet-box
 
 go 1.20
 
